@@ -3,26 +3,420 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Blog</title>
+    <title>Delicious Food Blog - Recipes & Reviews</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        header h2 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        
+        header img {
+            height: 60px;
+            width: 60px;
+            border-radius: 50%;
+            border: 3px solid white;
+            object-fit: cover;
+            margin-right: 20px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style-type: none;
+            gap: 30px;
+        }
+        
+        nav li {
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        
+        nav li:hover {
+            border-bottom: 2px solid white;
+        }
+        
+        .hero {
+            height: 400px;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+                        url('https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=1200&h=400&fit=crop') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .hero p {
+            font-size: 20px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        
+        main {
+            background-color: #f9f9f9;
+            padding: 40px;
+        }
+        
+        .container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .featured-recipes h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #333;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .recipe-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+        
+        .recipe-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .recipe-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .recipe-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .recipe-content {
+            padding: 20px;
+        }
+        
+        .recipe-content h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #667eea;
+        }
+        
+        .recipe-content p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .recipe-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .sidebar h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .sidebar-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+        
+        .sidebar-item:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .sidebar-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+        
+        .sidebar-item h4 {
+            font-size: 14px;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .sidebar-item p {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        footer {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            margin-top: 40px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h4 {
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section li {
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .footer-section li:hover {
+            opacity: 0.8;
+        }
+        
+        .footer-images {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .footer-images img {
+            height: 80px;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .footer-images img:hover {
+            transform: scale(1.05);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-    <header style="height: 100px; background-color:peachpuff; display:flex">
-        <img src="./food.jpg" alt="logo"/>
-        <h2> FOOD BLOG</h2>
+    <!-- Header -->
+    <header>
+        <div style="display: flex; align-items: center;">
+            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=100&h=100&fit=crop" alt="Food Blog Logo"/>
+            <h2>FOOD BLOG</h2>
+        </div>
         <nav>
-            <ul style="display: flex; list-style-type: none;">
+            <ul>
                 <li>Home</li>
                 <li>About</li>
-                <li>Items</li>
-                <li>Login</li>
+                <li>Recipes</li>
+                <li>Contact</li>
             </ul>
         </nav>
     </header>
-    <main style="height:1600px;background-color: burlywood;">
-        <div style="display: flex;"> 
-            <article style="height: 1600px;background-color: blue; width:30%;"></article>
-            <section style="height:200px; width:70%; background-color:coral;"></section></div>
+    
+    <!-- Hero Section -->
+    <div class="hero">
+        <div>
+            <h1>Delicious Recipes & Food Stories</h1>
+            <p>Explore mouth-watering dishes from around the world</p>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Featured Recipes -->
+            <section class="featured-recipes">
+                <h2>Featured Recipes</h2>
+                <div class="recipe-cards">
+                    <!-- Recipe 1 -->
+                    <div class="recipe-card">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=250&fit=crop" alt="Pasta Carbonara" class="recipe-image"/>
+                        <div class="recipe-content">
+                            <h3>Classic Pasta Carbonara</h3>
+                            <p>Authentic Italian pasta with creamy sauce and pancetta</p>
+                            <div class="recipe-meta">
+                                <span>⏱️ 30 mins</span>
+                                <span>👨‍🍳 Easy</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recipe 2 -->
+                    <div class="recipe-card">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=250&fit=crop" alt="Grilled Salmon" class="recipe-image"/>
+                        <div class="recipe-content">
+                            <h3>Pan-Seared Salmon</h3>
+                            <p>Fresh salmon fillet with lemon butter and herbs</p>
+                            <div class="recipe-meta">
+                                <span>⏱️ 25 mins</span>
+                                <span>👨‍🍳 Medium</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recipe 3 -->
+                    <div class="recipe-card">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=250&fit=crop" alt="Chicken Tikka" class="recipe-image"/>
+                        <div class="recipe-content">
+                            <h3>Spiced Chicken Tikka</h3>
+                            <p>Marinated chicken with aromatic Indian spices</p>
+                            <div class="recipe-meta">
+                                <span>⏱️ 45 mins</span>
+                                <span>👨‍🍳 Medium</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recipe 4 -->
+                    <div class="recipe-card">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=250&fit=crop" alt="Vegetable Stir Fry" class="recipe-image"/>
+                        <div class="recipe-content">
+                            <h3>Asian Vegetable Stir Fry</h3>
+                            <p>Colorful vegetables with ginger and soy sauce</p>
+                            <div class="recipe-meta">
+                                <span>⏱️ 20 mins</span>
+                                <span>👨‍🍳 Easy</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <h3>Recent Posts</h3>
+                
+                <div class="sidebar-item">
+                    <img src="https://images.unsplash.com/photo-1504674900967-966ce0ece64d?w=300&h=150&fit=crop" alt="Chocolate Cake"/>
+                    <h4>Decadent Chocolate Cake</h4>
+                    <p>A rich chocolate cake recipe perfect for celebrations</p>
+                </div>
+                
+                <div class="sidebar-item">
+                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300&h=150&fit=crop" alt="Fresh Salad"/>
+                    <h4>Healthy Green Salad</h4>
+                    <p>Nutritious salad with fresh greens and vinaigrette</p>
+                </div>
+                
+                <div class="sidebar-item">
+                    <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=300&h=150&fit=crop" alt="Bread"/>
+                    <h4>Homemade Artisan Bread</h4>
+                    <p>Crusty bread with soft interior, baked fresh daily</p>
+                </div>
+                
+                <div class="sidebar-item">
+                    <img src="https://images.unsplash.com/photo-1541519227354-08fa5d50c44d?w=300&h=150&fit=crop" alt="Dessert"/>
+                    <h4>Strawberry Cheesecake</h4>
+                    <p>Creamy cheesecake topped with fresh strawberries</p>
+                </div>
+            </aside>
+        </div>
     </main>
-    <footer style="height:400px background-color:peachpuff; display:flex;"></footer>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About Us</h4>
+                <p>Welcome to our food blog where passion meets culinary excellence. Discover recipes, tips, and food stories.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li>Home</li>
+                    <li>Recipes</li>
+                    <li>About</li>
+                    <li>Contact</li>
+                    <li>Privacy Policy</li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <ul>
+                    <li>Facebook</li>
+                    <li>Instagram</li>
+                    <li>Twitter</li>
+                    <li>Pinterest</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h4 style="margin-bottom: 15px;">Featured Food Photography</h4>
+            <div class="footer-images">
+                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=200&h=80&fit=crop" alt="Food 1"/>
+                <img src="https://images.unsplash.com/photo-1504674900967-966ce0ece64d?w=200&h=80&fit=crop" alt="Food 2"/>
+                <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=200&h=80&fit=crop" alt="Food 3"/>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Delicious Food Blog. All rights reserved. | Powered by Food Passion 🍽️</p>
+        </div>
+    </footer>
 </body>
 </html>
